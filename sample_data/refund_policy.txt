@@ -1,0 +1,15 @@
+Company Refund Policy (effective 2024)
+
+Standard customers are eligible for a full refund within 30 days of purchase,
+provided the product is unused. Refund requests must be submitted through
+the support portal.
+
+Enterprise customers on annual contracts signed before January 2023 are
+covered under legacy terms: refunds are prorated based on unused months
+remaining in the contract, capped at 6 months of fees. Contracts signed
+January 2023 or later follow the standard 30-day policy regardless of
+account tier.
+
+Refunds are processed within 5-7 business days to the original payment method.
+Enterprise customers with a dedicated account manager should route refund
+requests through their AM rather than the support portal.

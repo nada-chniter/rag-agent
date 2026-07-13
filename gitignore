@@ -1,0 +1,15 @@
+# Secrets — never commit API keys
+.env
+
+# Generated vector database (large, regenerable via `ingest`)
+chroma_db/
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# OS/editor junk
+.DS_Store
+.vscode/
