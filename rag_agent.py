@@ -93,13 +93,20 @@ class RAGAgent:
         messages = [{"role": "user", "content": question}]
 
         for step in range(MAX_AGENT_SEARCH_STEPS):
-            response = self.client.messages.create(
-                model=GENERATION_MODEL,
-                max_tokens=MAX_TOKENS,
-                system=SYSTEM_PROMPT,
-                tools=[SEARCH_TOOL],
-                messages=messages,
-            )
+            try:
+                response = self.client.messages.create(
+                    model=GENERATION_MODEL,
+                    max_tokens=MAX_TOKENS,
+                    system=SYSTEM_PROMPT,
+                    tools=[SEARCH_TOOL],
+                    messages=messages,
+                )
+            except anthropic.RateLimitError:
+                return "The agent is being rate-limited. Please wait a moment and try again."
+            except anthropic.APIConnectionError:
+                return "Couldn't reach the Claude API — check your network connection and try again."
+            except anthropic.APIStatusError as e:
+                return f"The Claude API returned an error ({e.status_code}). Please try again."
 
             # Did Claude ask to use the tool, or did it give a final answer?
             tool_calls = [b for b in response.content if b.type == "tool_use"]

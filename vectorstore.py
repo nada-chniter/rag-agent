@@ -39,11 +39,16 @@ class VectorStore:
         )
 
     def add_chunks(self, chunks: list[Chunk]):
-        """Embed and store chunks. Chroma handles the embedding call internally."""
+        """
+        Embed and store chunks. Chroma handles the embedding call internally.
+
+        Uses upsert (not add) so re-ingesting a file that was already indexed
+        overwrites its old chunks by ID instead of erroring or duplicating them.
+        """
         if not chunks:
             return
 
-        self.collection.add(
+        self.collection.upsert(
             ids=[f"{c.source}-{c.chunk_id}" for c in chunks],
             documents=[c.text for c in chunks],
             metadatas=[{"source": c.source, "chunk_id": c.chunk_id} for c in chunks],
